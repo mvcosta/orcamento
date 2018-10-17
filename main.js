@@ -6,7 +6,6 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 let mainWindow;
 let dbWindow;
-let addWindow;
 
 //Listen for the app to be ready
 app.on('ready', function(){
@@ -48,30 +47,12 @@ function createdbWindow(){
   })
 };
 
-//Handle createaddWindow
-function createaddWindow(){
-  //Create new window
-  addWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
-    title: 'Lista de Obras'
-  });
-  // Load html into mainWindow
-  addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'app', 'database','addWindow.html'),
-    protocol: 'file',
-    slashes: true
-  }));
-  // Garbage colection
-  addWindow.on('close', function(){
-    addWindow = null;
-  })
-};
+
 
 //Catch item:add
 ipcMain.on('item:add', function(e, item){
   dbWindow.webContents.send('item:add', item);
-  addWindow.close();
+  // addWindow.close();
 })
 
 const mainMenuTemplate = [
