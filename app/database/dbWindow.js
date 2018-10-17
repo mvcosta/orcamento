@@ -11,9 +11,13 @@ let addWindow;
 
 ipcRenderer.on('item:add', function(e, item){
   addWindow.close();
-  $('#new').append($("<td></td>").text(item.obra));
-  $('#new').append($("<td></td>").text(item.empresa));
-  $('#new').append($("<td></td>").text(item.valor));
+  $('#mainTable > tbody:last-child').append(
+    "<tr>",
+    "<td>" + item.obra + "</td>",
+    "<td>" + item.empresa + "</td>",
+    "<td>" + item.valor + "</td>",
+    "</tr>"
+  );
 });
 
 $('button').click(createaddWindow);
