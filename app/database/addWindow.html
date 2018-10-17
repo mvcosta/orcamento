@@ -2,17 +2,18 @@
 <html>
 <head>
   <title>Adicionar Obra a Lista</title>
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
   <form>
     <div>
       <label>Insira a Obra</label>
       <hr>
-      <span>Obra:</span><input type="text" id="Obra" autofocus>
-      <span>Empresa:</span><input type="text" id="Empresa" autofocus>
-      <span>Valor:</span><input type="text" id="Valor" autofocus>
+      <input type="text" id="Obra" placeholder="Obra" class="form-control" autofocus>
+      <input type="text" id="Empresa" placeholder="Empresa" class="form-control" autofocus>
+      <input type="text" id="Valor" placeholder="Valor" class="form-control" autofocus>
     </div>
-    <button type="submit">Add Obra</button>
+    <button type="submit" class="btn btn-sm btn-primary btn-block">Add Obra</button>
   </form>
 </body>
 <script src="../../config/renderer.js"></script>

@@ -26,8 +26,8 @@ $('button').click(createaddWindow);
 function createaddWindow(){
   //Create new window
   addWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
+    width: 600,
+    height: 500,
     title: 'Lista de Obras'
   });
   // Load html into mainWindow
