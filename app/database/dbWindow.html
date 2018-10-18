@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <title>Lista de Obras</title>
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dbWindow.css">
+  <link rel="stylesheet" href="../stylesheet.css">
 </head>
+
 <body>
-  <div>
-    <table id ='mainTable'>
-      <tr>
-        <th> Obra </th>
-        <th> Empresa </th>
-        <th> Valor </th>
-      </tr>
-    </table>
-  </div>
-  <div>
-    <button type="button">Nova Obra</button>
+  <div class="container">
+    <header class="jumbotron">
+      <div class="container">
+        <h1>Lista de Obras</h1>
+      </div>
+    </header>
+    <div class="mainView">
+      <table id='mainTable'>
+        <tr>
+          <th> Obra </th>
+          <th> Empresa </th>
+          <th> Valor </th>
+        </tr>
+      </table>
+    </div>
+    <div class="mainView">
+      <button type="submit" class="btn btn-sm btn-primary btn-block">Nova Obra</button>
+    </div>
   </div>
 </body>
-  <script src="../../config/renderer.js"></script>
-  <script src="dbWindow.js"></script>
+<script src="../../config/renderer.js"></script>
+<script src="dbWindow.js"></script>
+
 </html>

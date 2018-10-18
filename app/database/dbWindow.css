@@ -1,4 +1,17 @@
-div .row{
-  display:flex;
-  flex-wrap: wrap;
+
+table, th, td{
+  /* border: 1px solid black;
+  border-collapse: collapse; */
+  text-align: center;
+}
+table{
+  width: 100%;
+}
+
+th, td{
+  border-bottom: 1px solid #ddd;
+}
+
+button{
+  margin: 5px auto;
 }

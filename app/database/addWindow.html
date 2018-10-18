@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Adicionar Obra a Lista</title>
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="addWindow.css">
+  <link rel="stylesheet" href="../stylesheet.css">
 </head>
+
 <body>
   <form>
-    <div>
-      <label>Insira a Obra</label>
+    <div class="container">
+      <header class="jumbotron">
+        <div class="container">
+          <h1>Insira a Obra</h1>
+        </div>
+      </header>
       <hr>
-      <input type="text" id="Obra" placeholder="Obra" class="form-control" autofocus>
-      <input type="text" id="Empresa" placeholder="Empresa" class="form-control" autofocus>
-      <input type="text" id="Valor" placeholder="Valor" class="form-control" autofocus>
-    </div>
-    <button type="submit" class="btn btn-sm btn-primary btn-block">Add Obra</button>
+      <div class="mainView">
+        <input type="text" id="Obra" placeholder="Obra" class="form-control" autofocus>
+        <input type="text" id="Empresa" placeholder="Empresa" class="form-control" autofocus>
+        <input type="text" id="Valor" placeholder="Valor" class="form-control" autofocus>
+      </div>
+      <div class="mainView">
+        <button type="submit" class="btn btn-sm btn-primary btn-block">Adicionar Obra</button>
+      </div>
   </form>
+  </div>
 </body>
 <script src="../../config/renderer.js"></script>
 <script src="addWindow.js"></script>
+
 </html>

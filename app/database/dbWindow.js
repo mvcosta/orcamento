@@ -3,13 +3,18 @@ console.log("working")
 const url = require("url");
 const path = require("path");
 const electron = require('electron');
-const {ipcRenderer , remote} = electron;
-const {BrowserWindow} = remote
+const {
+  ipcRenderer,
+  remote
+} = electron;
+const {
+  BrowserWindow
+} = remote
 
 let addWindow;
 
 
-ipcRenderer.on('item:add', function(e, item){
+ipcRenderer.on('item:add', function(e, item) {
   addWindow.close();
   $('#mainTable > tbody:last-child').append(
     "<tr>",
@@ -23,7 +28,7 @@ ipcRenderer.on('item:add', function(e, item){
 $('button').click(createaddWindow);
 
 //Handle createaddWindow
-function createaddWindow(){
+function createaddWindow() {
   //Create new window
   addWindow = new BrowserWindow({
     width: 600,
@@ -37,7 +42,7 @@ function createaddWindow(){
     slashes: true
   }));
   // Garbage colection
-  addWindow.on('close', function(){
+  addWindow.on('close', function() {
     addWindow = null;
   })
 };
