@@ -1,6 +1,7 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
+const fs = require("fs");
 
 const {
   app,
@@ -8,6 +9,9 @@ const {
   Menu,
   ipcMain
 } = electron;
+
+const userDataPath = app.getPath('userData');
+listPath = path.join(userDataPath, 'savedList.json');
 
 let mainWindow;
 let dbWindow;
@@ -50,11 +54,27 @@ function createdbWindow() {
   dbWindow.on('close', function() {
     dbWindow = null;
   })
+  // //Reading json
+  // fs.readFile(listPath, function(err, data) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log("READ!");
+  //   }
+  // });
+  // dbWindow.webContents.send('item:data', data);
 };
 
 //Catch item:add
 ipcMain.on('item:add', function(e, item) {
-  dbWindow.webContents.send('item:add', item);
+  fs.appendFile(listPath, JSON.stringify(item), function(err) {
+    if (err) {
+      console.log('Couldnt save')
+    } else {
+      console.log('Saved!');
+      dbWindow.webContents.send('item:add', item);
+    }
+  });
 })
 
 ipcMain.on('item:createdbWindow', function(e) {

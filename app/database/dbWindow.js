@@ -2,6 +2,7 @@ console.log("working")
 
 const url = require("url");
 const path = require("path");
+const fs = require("fs")
 const electron = require('electron');
 const {
   ipcRenderer,
@@ -13,6 +14,17 @@ const {
 
 let addWindow;
 
+//Reading json
+
+fs.readFile("C:/Users/MVcos/AppData/Roaming/orcamentos/savedList.json", function(err, data) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("This is the data");
+    console.log(data);
+    database = data
+  }
+});
 
 ipcRenderer.on('item:add', function(e, item) {
   addWindow.close();
