@@ -16,6 +16,8 @@ listPath = path.join(userDataPath, 'savedList.json');
 let mainWindow;
 let dbWindow;
 
+let database = [];
+
 //Listen for the app to be ready
 app.on('ready', function() {
   //Create new window
@@ -45,41 +47,56 @@ function createdbWindow() {
     title: 'Lista de Obras'
   });
   // Load html into dbWindow
+  // TOTEST: contents.loadFile(filePath)
   dbWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'app', 'database', 'dbWindow.html'),
     protocol: 'file',
     slashes: true
   }));
+  dbWindow.webContents.on('did-finish-load', function() {
+    database = readJson();
+    dbWindow.webContents.send('data:json', database);
+  })
   // Garbage colection
   dbWindow.on('close', function() {
     dbWindow = null;
   })
-  // //Reading json
-  // fs.readFile(listPath, function(err, data) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log("READ!");
-  //   }
-  // });
-  // dbWindow.webContents.send('item:data', data);
+
 };
 
 //Catch item:add
 ipcMain.on('item:add', function(e, item) {
-  fs.appendFile(listPath, JSON.stringify(item), function(err) {
-    if (err) {
-      console.log('Couldnt save')
-    } else {
-      console.log('Saved!');
-      dbWindow.webContents.send('item:add', item);
-    }
-  });
-})
+  database.push(item)
+  writeJson(database);
+  dbWindow.webContents.send('item:add', item);
+});
 
 ipcMain.on('item:createdbWindow', function(e) {
   createdbWindow();
 });
+
+//Reading json
+function readJson() {
+  fs.readFile(listPath, function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("This is the data from", listPath);
+      console.log(data);
+      return (JSON.parse(data));
+    }
+  });
+}
+
+function writeJson(data) {
+  fs.writeFile(listPath, JSON.stringify(data), function(err) {
+    if (err) {
+      console.log('Couldnt save')
+    } else {
+      console.log('Saved!');
+    }
+  });
+}
 
 const mainMenuTemplate = [{
   label: 'File',

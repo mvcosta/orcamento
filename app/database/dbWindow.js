@@ -2,7 +2,6 @@ console.log("working")
 
 const url = require("url");
 const path = require("path");
-const fs = require("fs")
 const electron = require('electron');
 const {
   ipcRenderer,
@@ -13,18 +12,6 @@ const {
 } = remote
 
 let addWindow;
-
-//Reading json
-
-fs.readFile("C:/Users/MVcos/AppData/Roaming/orcamentos/savedList.json", function(err, data) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("This is the data");
-    console.log(data);
-    database = data
-  }
-});
 
 ipcRenderer.on('item:add', function(e, item) {
   addWindow.close();
@@ -37,6 +24,11 @@ ipcRenderer.on('item:add', function(e, item) {
   );
 });
 
+ipcRenderer.on('data:json', function(e, database) {
+  console.log("Loading data...")
+  console.log(database)
+});
+
 $('button').click(createaddWindow);
 
 //Handle createaddWindow
@@ -46,6 +38,7 @@ function createaddWindow() {
     width: 600,
     height: 500,
     title: 'Lista de Obras'
+    // parent: dbWindow
   });
   // Load html into mainWindow
   addWindow.loadURL(url.format({
