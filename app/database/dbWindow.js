@@ -25,8 +25,16 @@ ipcRenderer.on('item:add', function(e, item) {
 });
 
 ipcRenderer.on('data:json', function(e, database) {
-  console.log("Loading data...")
   console.log(database)
+  $.each(database, function(index, value) {
+    $('#mainTable > tbody:last-child').append(
+      "<tr>",
+      "<td>" + value.obra + "</td>",
+      "<td>" + value.empresa + "</td>",
+      "<td>" + value.valor + "</td>",
+      "</tr>"
+    );
+  })
 });
 
 $('button').click(createaddWindow);

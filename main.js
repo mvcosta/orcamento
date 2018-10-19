@@ -16,7 +16,9 @@ listPath = path.join(userDataPath, 'savedList.json');
 let mainWindow;
 let dbWindow;
 
-let database = [];
+var database = [];
+// database.push('WTF IS GOING ON?')
+
 
 //Listen for the app to be ready
 app.on('ready', function() {
@@ -54,8 +56,7 @@ function createdbWindow() {
     slashes: true
   }));
   dbWindow.webContents.on('did-finish-load', function() {
-    database = readJson();
-    dbWindow.webContents.send('data:json', database);
+    readJson();
   })
   // Garbage colection
   dbWindow.on('close', function() {
@@ -67,8 +68,8 @@ function createdbWindow() {
 //Catch item:add
 ipcMain.on('item:add', function(e, item) {
   database.push(item)
-  writeJson(database);
-  dbWindow.webContents.send('item:add', item);
+  console.log(database)
+  writeJson(database, item);
 });
 
 ipcMain.on('item:createdbWindow', function(e) {
@@ -81,19 +82,23 @@ function readJson() {
     if (err) {
       console.log(err);
     } else {
-      console.log("This is the data from", listPath);
-      console.log(data);
-      return (JSON.parse(data));
+      try {
+        console.log((JSON.parse(data)));
+        database = JSON.parse(data);
+        console.log(database);
+      } catch (e) {}
+      dbWindow.webContents.send('data:json', database);
     }
   });
 }
 
-function writeJson(data) {
-  fs.writeFile(listPath, JSON.stringify(data), function(err) {
+function writeJson(database, item) {
+  fs.writeFile(listPath, JSON.stringify(database), function(err) {
     if (err) {
       console.log('Couldnt save')
     } else {
       console.log('Saved!');
+      dbWindow.webContents.send('item:add', item);
     }
   });
 }
