@@ -4,7 +4,9 @@ const {
 } = electron;
 
 $(document).ready(function() {
-  $('.preco').mask('000.000.000,00');
+  $('.preco').mask('00.000.000,00', {
+    reverse: true
+  });
 });
 
 $('form').submit(function(e) {

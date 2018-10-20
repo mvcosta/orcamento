@@ -2,8 +2,8 @@
 table, th, td{
   /* border: 1px solid black;
   border-collapse: collapse; */
-  text-align: center;
   /* width: 100px; */
+  text-align: center;
 }
 table{
   width: 100%;
@@ -14,11 +14,15 @@ th, td{
   border-bottom: 1px solid #ddd;
 }
 
+.trash, .arrow{
+  border-bottom: 0px solid #ddd;
+}
+
 button{
   margin: 5px auto;
 }
 
-span{
+span.delete{
   background: #e74c3c;
   /* height: 40px; */
   margin: 0px;
@@ -31,14 +35,36 @@ span{
   opacity: 0;
 }
 
-td:hover span{
+td:hover span.delete{
   width: 25px;
   opacity: 1.0;
 }
 
-#buttonspace{
+span.more{
+  background: blue;
+  /* height: 40px; */
+  margin: 0px;
+  text-align: center;
+  color: white;
+  width: 0;
+  padding: 0px;
+  display: inline-block;
+  transition: 0.1s linear;
+  opacity: 0;
+}
+
+td:hover span.more{
+  width: 25px;
+  opacity: 1.0;
+}
+
+.button-space{
   color: #ffffff;
   margin-right: 20px;
   width: 20px;
   /* display: inline-block; */
+}
+
+.info{
+  display: none;
 }

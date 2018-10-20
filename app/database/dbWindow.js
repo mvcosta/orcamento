@@ -16,14 +16,14 @@ let addWindow;
 ipcRenderer.on('item:add', function(e, item) {
   addWindow.close();
   $('#mainTable > tbody:last-child').append(
-    `<tr><td><span id ="${item.obra}"> <i class="far fa-trash-alt"></i> </span></td><td>${item.obra}</td><td>${item.empresa}</td><td>${item.valor}</td></tr>`
+    `<tr><td class="trash"><span id ="${item.obra}" class="delete"> <i class="far fa-trash-alt"></i> </span></td><td>${item.obra}</td><td>${item.empresa}</td><td>${item.valor}</td><td class="arrow"><span id ="${item.obra}" class="more"> <i class="fas fa-arrow-circle-down"></i> </span></tr><tr class="info"><th> - </th><th> Obra </th><th> Empresa </th><th> Valor </th><th> - </th></tr>`
   );
 });
 
 ipcRenderer.on('data:json', function(e, database) {
-  $.each(database, function(index, value) {
+  $.each(database, function(index, item) {
     $('#mainTable > tbody:last-child').append(
-      `<tr><td><span id ="${value.obra}"> <i class="far fa-trash-alt"></i> </span></td><td>${value.obra}</td><td>${value.empresa}</td><td>${value.valor}</td></tr>`
+      `<tr><td class="trash"><span id ="${item.obra}" class="delete"> <i class="far fa-trash-alt"></i> </span></td><td>${item.obra}</td><td>${item.empresa}</td><td>${item.valor}</td><td class="arrow"><span id ="${item.obra}" class="more"> <i class="fas fa-arrow-circle-down"></i> </span></tr><tr class="info"><th> - </th><th> Obra </th><th> Empresa </th><th> Valor </th><th> - </th></tr>`
     );
   })
 });
@@ -33,13 +33,18 @@ ipcRenderer.on('data:json', function(e, database) {
 $('button').click(createaddWindow);
 
 // Delete Obra
-$(document).on('click', 'span', function() {
+$(document).on('click', 'span.delete', function() {
   console.log("Span clicked!")
   item = this.id
   $(this).parent().parent().fadeOut(250, function() {
     $(this).remove();
   });
   ipcRenderer.send("item:delete", item)
+});
+
+// View more
+$(document).on('click', 'span.more', function() {
+  $(".info").slideToggle("slow")
 });
 
 //Handle createaddWindow
