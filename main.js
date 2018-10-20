@@ -17,8 +17,6 @@ let mainWindow;
 let dbWindow;
 
 var database = [];
-// database.push('WTF IS GOING ON?')
-
 
 //Listen for the app to be ready
 app.on('ready', function() {
@@ -68,8 +66,19 @@ function createdbWindow() {
 //Catch item:add
 ipcMain.on('item:add', function(e, item) {
   database.push(item)
-  console.log(database)
   writeJson(database, item);
+});
+
+ipcMain.on('item:delete', function(e, item) {
+  console.log("item:delete")
+  console.log(item)
+  index = database.findIndex(x => x.obra === item);
+  console.log("index:delete")
+  console.log(index)
+  database.splice(index, 1);
+  console.log("database:delete")
+  console.log(database)
+  deleteJson(database);
 });
 
 ipcMain.on('item:createdbWindow', function(e) {
@@ -83,9 +92,7 @@ function readJson() {
       console.log(err);
     } else {
       try {
-        console.log((JSON.parse(data)));
         database = JSON.parse(data);
-        console.log(database);
       } catch (e) {}
       dbWindow.webContents.send('data:json', database);
     }
@@ -95,10 +102,20 @@ function readJson() {
 function writeJson(database, item) {
   fs.writeFile(listPath, JSON.stringify(database), function(err) {
     if (err) {
-      console.log('Couldnt save')
+      console.log('Couldnt save WriteJson')
     } else {
-      console.log('Saved!');
+      console.log('Saved! WriteJson');
       dbWindow.webContents.send('item:add', item);
+    }
+  });
+}
+
+function deleteJson(database) {
+  fs.writeFile(listPath, JSON.stringify(database), function(err) {
+    if (err) {
+      console.log('Couldnt delete!')
+    } else {
+      console.log('Deleted');
     }
   });
 }

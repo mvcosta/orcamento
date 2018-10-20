@@ -3,6 +3,10 @@ const {
   ipcRenderer
 } = electron;
 
+$(document).ready(function() {
+  $('.preco').mask('000.000.000,00');
+});
+
 $('form').submit(function(e) {
   e.preventDefault();
   const item = {
@@ -10,6 +14,5 @@ $('form').submit(function(e) {
     empresa: $('#Empresa').val(),
     valor: $('#Valor').val()
   }
-  console.log(item)
   ipcRenderer.send('item:add', item);
 })

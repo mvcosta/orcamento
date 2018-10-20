@@ -3,9 +3,11 @@ table, th, td{
   /* border: 1px solid black;
   border-collapse: collapse; */
   text-align: center;
+  /* width: 100px; */
 }
 table{
   width: 100%;
+  table-layout: fixed;
 }
 
 th, td{
@@ -14,4 +16,29 @@ th, td{
 
 button{
   margin: 5px auto;
+}
+
+span{
+  background: #e74c3c;
+  /* height: 40px; */
+  margin: 0px;
+  text-align: center;
+  color: white;
+  width: 0;
+  padding: 0px;
+  display: inline-block;
+  transition: 0.1s linear;
+  opacity: 0;
+}
+
+td:hover span{
+  width: 25px;
+  opacity: 1.0;
+}
+
+#buttonspace{
+  color: #ffffff;
+  margin-right: 20px;
+  width: 20px;
+  /* display: inline-block; */
 }
