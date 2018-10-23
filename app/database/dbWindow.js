@@ -44,7 +44,7 @@ $(document).on('click', 'span.delete', function() {
 
 // View more
 $(document).on('click', 'span.more', function() {
-  $(".info").slideToggle("slow")
+  $(".info").toggle()
 });
 
 //Handle createaddWindow
